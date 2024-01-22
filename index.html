@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Petits Plats</title>
+    <!-- Fontawesome Icon  -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <img src="./asssets/website-picture/logo.png" class="logo">
+        <div class="search-bar">
+            <h1 class="headline">CHERCHEZ PARMI PLUS DE 1500 RECETTES <br> DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
+            <span class="search-container">
+                <input type="text" class="search" placeholder="Rechercher une recette, un ingrédient, ...">
+                <i class="fas fa-search big"></i>
+            </span>
+        </div>
+    </header>
+    <main>
+        <div class="header">
+            <div class="dropdown dropdown-i">
+                <span class="dropdown__head-i">
+                    <label class="dropdown_title-i" for="dropdown-i">Ingrédients</label>
+                    <i id="button__down-i" class="fas fa-chevron-up" style="display: none;"></i>
+                    <i id="button__up-i" class="fas fa-chevron-down" ></i>
+                </span>
+                <span class="dropdown__body-i">
+                    <span class="search-container-i small">
+                        <input type="text" class="search-small-i">
+                        <i class="fas fa-search small"></i>
+                    </span>
+                    <ul class="dropdown__items-i">
+                    </ul>
+                </span>
+            </div>  
+            <div class="dropdown-a">
+                <span class="dropdown__head-a">
+                    <label class="dropdown_title-a" for="dropdown-a">Appareils</label>
+                    <i id="button__down-a" class="fas fa-chevron-up" style="display: none;"></i>
+                    <i id="button__up-a" class="fas fa-chevron-down"></i>
+                </span>
+                <span class="dropdown__body-a">
+                    <ul class="dropdown__items-a">
+                    </ul>
+                </span>
+            </div>
+            <div class="dropdown-u">
+                <span class="dropdown__head-u">
+                    <label class="dropdown_title" for="dropdown-u">Ustensiles</label>
+                    <i id="button__down-u" class="fas fa-chevron-up" style="display: none;"></i>
+                    <i id="button__up-u" class="fas fa-chevron-down"></i>
+                </span>
+                <span class="dropdown__body-u">
+                    <ul class="dropdown__items-u">
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <section class="card"></section>
+    </main>
+
+    <script type="module" src="script/pages/index.js"></script>
+</body>
+
+</html>
