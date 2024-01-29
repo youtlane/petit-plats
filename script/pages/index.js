@@ -1,21 +1,29 @@
 import { GetData } from "../services/GetData.js";
+import { displayRecipes } from "./displayRecipes.js";
+import { addTags, displayTags } from "./displayTags.js";
 
 const dataService = new GetData();
+let allRecipes = [];
 let recipesData = [];
 let allIngredients = [];
 let allAppliances = [];
 let allUstensils = [];
+let tags = null;
 
 async function init() {
     recipesData = await dataService.getRecipesData();
+    allRecipes = recipesData;
     allIngredients = Array.from(new Set(recipesData.flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient))));
     allAppliances = Array.from(new Set(recipesData.map(recipe => recipe.appliance)));
     allUstensils = Array.from(new Set(recipesData.flatMap(recipe => recipe.ustensils)));
 
-    
+
     displayIngredients();
     displayAppliances();
     displayUstensils();
+
+    displayRecipes(recipesData);
+    displayTags();
 
 
     // Ajouter des écouteurs d'événements pour basculer la visibilité du dropdown
@@ -45,8 +53,8 @@ function displayIngredients() {
         listItem.textContent = ingredient;
         dropdownItems.appendChild(listItem);
     });
-
 }
+
 
 function displayAppliances() {
     const dropdownItemsA = document.querySelector('.dropdown__items-a');
@@ -67,8 +75,15 @@ function displayUstensils() {
         const listItem = document.createElement('li');
         listItem.textContent = ustensil;
         dropdownItemsU.appendChild(listItem);
+
+        listItem.addEventListener('click', () => {
+            const value = listItem.textContent;
+            console.log('value ', value);
+            addTags('selectedUtensils', value);
+        });
     });
 }
+
 function toggleDropdown(dropdownType) {
     const dropdownBodyI = document.querySelector('.dropdown__body-i');
     const dropdownBodyA = document.querySelector('.dropdown__body-a');

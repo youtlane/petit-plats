@@ -4,7 +4,7 @@ body {
 }
 
 header {
-    background-image: url('../asssets/website-picture/header-picture.jpg');
+    background-image: url('../assets/website-picture/header-picture.jpg');
     background-size: cover;
     height: 700px;
     border: 2px solid red;
@@ -71,6 +71,7 @@ main {
     gap: 66px;
     border: 2px solid blue;
     padding-left: 104px;
+    padding-right: 102px;
     padding-top: 40px;
 }
 
@@ -94,7 +95,8 @@ main {
     width: 195px;
     border-radius: 11px;
     background: #FFF;
-    margin-right: 10px; /* Adjust the margin as needed */
+    margin-right: 10px;
+    /* Adjust the margin as needed */
     height: fit-content;
 }
 
@@ -108,7 +110,9 @@ main {
     align-items: center;
 }
 
-.search-small-i {
+.search-small-i,
+.search-small-u,
+.search-small-a {
     padding: 0px;
     height: 36px;
     border-radius: 2px;
@@ -116,7 +120,9 @@ main {
     width: 163px;
 }
 
-.search-container-i.small {
+.search-container-i.small ,
+.search-container-u.small ,
+.search-container-a.small{
     padding: 0 16px;
     position: relative;
     color: #7A7A7A;
@@ -146,4 +152,58 @@ main {
 .dropdown__body-a,
 .dropdown__body-u {
     display: none;
+}
+
+.header-title {
+    margin-left: auto;
+    font-family: Anton;
+    font-size: 21px;
+    color: #1B1B1B;
+}
+
+.main_content {
+    padding-left: 102px;
+    padding-right: 102px;
+    padding-top: 55px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 66px;
+}
+
+.card {
+    width: 380px;
+    border: 2px solid pink;
+}
+
+.card__pic {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+
+.card__content {
+    background-color: white;
+    padding: 32px 25px 0;
+}
+
+.recipe-title {
+    font-family: Anton;
+    font-size: 18px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.recipe-text h3 {
+    color: #7A7A7A;
+    font-family: Manrope;
+    font-size: 12px;
+    letter-spacing: 1.08px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.recipe-text p {
+    font-family: Manrope;
+    font-size: 14px;
 }

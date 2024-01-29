@@ -11,4 +11,5 @@ export class GetData {
         const recipesData = recipes.map(data => new Recipe(data));
         return recipesData;
     }
+
 }
