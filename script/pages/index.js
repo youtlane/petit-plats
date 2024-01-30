@@ -25,6 +25,7 @@ async function init() {
     displayRecipes(recipesData);
     displayTags();
 
+    displayFiltredRecipes();
 
     // Ajouter des écouteurs d'événements pour basculer la visibilité du dropdown
     const buttonDownI = document.getElementById('button__down-i');
@@ -42,6 +43,12 @@ async function init() {
     buttonDownU.addEventListener('click', toggleDropdown.bind(null, 'u'));
     buttonUpU.addEventListener('click', toggleDropdown.bind(null, 'u'));
 
+}
+
+export function displayFiltredRecipes() {
+    let selectedUtensils = JSON.parse(sessionStorage.getItem('selectedUtensils')) || [];
+
+    filterAndDisplayRecipes(selectedUtensils);
 }
 
 function displayIngredients() {
@@ -78,10 +85,29 @@ function displayUstensils() {
 
         listItem.addEventListener('click', () => {
             const value = listItem.textContent;
-            console.log('value ', value);
             addTags('selectedUtensils', value);
+
+            let selectedUtensils = JSON.parse(sessionStorage.getItem('selectedUtensils')) || [];
+            filterAndDisplayRecipes(selectedUtensils);
         });
     });
+}
+
+function filterAndDisplayRecipes(selectedTags) {
+    if (selectedTags.length === 0) {
+        recipesData = allRecipes;
+    } else {
+        // Assuming recipesData is a global variable or accessible in this scope
+        recipesData = recipesData.filter(recipe => {
+            const recipeUstensils = recipe.ustensils || [];
+            return selectedTags.every(tag => recipeUstensils.includes(tag));
+        });
+    }
+
+    console.log('recipesData', selectedTags, recipesData);
+
+    // Now you can use the filteredRecipes to display in the UI
+    displayRecipes(recipesData);
 }
 
 function toggleDropdown(dropdownType) {
@@ -113,6 +139,21 @@ function toggleDropdown(dropdownType) {
         currentButtonDown.style.display = 'none';
         currentDropdownBody.style.display = 'none';
     }
+}
+
+
+export function removeTagFromSession(tagToRemove) {
+    let selectedTags = JSON.parse(sessionStorage.getItem('selectedUtensils')) || [];
+
+    // Remove the specified tag from the array
+    selectedTags = selectedTags.filter(tag => tag !== tagToRemove);
+
+    // Update the session with the modified array
+    sessionStorage.setItem('selectedUtensils', JSON.stringify(selectedTags));
+
+    console.log('displayFiltredRecipes() ');
+
+    displayFiltredRecipes();
 }
 
 

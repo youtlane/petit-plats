@@ -1,5 +1,6 @@
 export function displayRecipes(recipesData) {
     const recipesContainer = document.querySelector('.main_content');
+    recipesContainer.innerHTML = '';
 
     recipesData.forEach(recipe => {
         let sectionIngredient = '<table>';
