@@ -75,6 +75,24 @@ main {
     padding-top: 40px;
 }
 
+.dropdown {
+    position: absolute;
+}
+
+.dropdown-i {
+    left: 100px;
+    /* top: 0; */
+}
+
+.dropdown-a {
+    left: 400px; /* Adjust the value as needed */
+    /* top: 0; */
+}
+
+.dropdown-u {
+    left: 700px; /* Adjust the value as needed */
+    /* top: 0; */
+}
 
 .dropdown-btn {
     background-color: white;
