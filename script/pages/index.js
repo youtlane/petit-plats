@@ -73,6 +73,7 @@ function displayIngredients() {
   allIngredients.forEach((ingredient) => {
     const listItem = document.createElement("li");
     listItem.textContent = ingredient;
+    listItem.classList.add("fa-search-item");
     dropdownItemsI.appendChild(listItem);
 
     addReciepesEvent("selectedIngredients", listItem);
@@ -114,11 +115,15 @@ function addReciepesEvent(selectedTagsName, listItems) {
 
 function filterAndDisplayRecipes() {
   const recipesData = filterRecipes(allRecipes);
+  const titleHeader = document.querySelector('.header-title');
 
   console.log("recipesData ", recipesData);
 
   // Now you can use the filteredRecipes to display in the UI
   displayRecipes(recipesData);
+  titleHeader.innerHTML = recipesData.length + ' recettes';
+
+  toggleDropdownAll();
 }
 
 function toggleDropdown(dropdownType) {
@@ -167,6 +172,16 @@ function toggleDropdown(dropdownType) {
     currentButtonDown.style.display = "none";
     currentDropdownBody.style.display = "none";
   }
+}
+
+function toggleDropdownAll() {
+  const dropdownBodyI = document.querySelector(".dropdown__body-i");
+  const dropdownBodyA = document.querySelector(".dropdown__body-a");
+  const dropdownBodyU = document.querySelector(".dropdown__body-u");
+
+  dropdownBodyI.style.display = "none";
+  dropdownBodyA.style.display = "none";
+  dropdownBodyU.style.display = "none";
 }
 
 export function removeTagFromSession(tagToRemove, tagType) {

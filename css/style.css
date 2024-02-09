@@ -7,7 +7,6 @@ header {
     background-image: url('../assets/website-picture/header-picture.jpg');
     background-size: cover;
     height: 700px;
-    border: 2px solid red;
 }
 
 .logo {
@@ -27,10 +26,13 @@ header {
     font-size: 36px;
     font-style: normal;
     font-weight: 400;
+    text-align: center;
 }
 
 .search-container,
-.search-container-i {
+.search-container-i,
+.search-container-u,
+.search-container-a {
     display: flex;
     align-items: center;
     position: relative;
@@ -69,7 +71,6 @@ main {
 .header {
     display: flex;
     gap: 66px;
-    border: 2px solid blue;
     padding-left: 104px;
     padding-right: 102px;
     padding-top: 40px;
@@ -109,7 +110,6 @@ main {
 .dropdown-i,
 .dropdown-a,
 .dropdown-u {
-    border: 2px solid red;
     width: 195px;
     border-radius: 11px;
     background: #FFF;
@@ -131,25 +131,25 @@ main {
 .search-small-i,
 .search-small-u,
 .search-small-a {
-    padding: 0px;
     height: 36px;
     border-radius: 2px;
     border: 1px solid #C6C6C6;
-    width: 163px;
+    width: 158px;
 }
 
 .search-container-i.small,
 .search-container-u.small,
 .search-container-a.small {
-    padding: 0 16px;
+    margin-left: 16px;
     position: relative;
     color: #7A7A7A;
     font-size: 14px;
 }
 
-.fas.fa-search.small {
-    position: absolute;
-    right: 16%;
+.fa-search.small {
+    font-size: 16px;
+    color: #7A7A7A;
+    margin-left: -20px;
 }
 
 .dropdown__items-i,
@@ -161,9 +161,13 @@ main {
     flex-direction: column;
     gap: 13px;
     font-size: 14px;
-
+    cursor: pointer;
     overflow-y: scroll;
     max-height: 300px
+}
+
+.fa-search-item:hover {
+    background: #FFD15B;
 }
 
 .dropdown__body-i,
@@ -190,7 +194,6 @@ main {
 
 .card {
     width: 380px;
-    border: 2px solid pink;
     background: white;
     border-radius: 20px 20px 20px 20px;
 }
@@ -224,6 +227,16 @@ main {
 }
 
 .recipe-text p {
+    font-family: Manrope;
+    font-size: 14px;
+}
+.ingredient_content {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.ingredient h2 {
     font-family: Manrope;
     font-size: 14px;
 }

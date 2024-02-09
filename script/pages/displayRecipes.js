@@ -3,16 +3,16 @@ export function displayRecipes(recipesData) {
     recipesContainer.innerHTML = '';
 
     recipesData.forEach(recipe => {
-        let sectionIngredient = '<table>';
+        let sectionIngredient = '<div class="ingredient_content">';
 
         recipe.ingredients.forEach(ingredient => {
-            sectionIngredient += `<tr>
-                <td>${ingredient.ingredient}</td>
-                <td>${ingredient.quantity} ${ingredient.unit}</td>
-            </tr>`;
+            sectionIngredient += `<div class="ingredient">
+                <h2>${ingredient.ingredient}</h2>
+                <h3>${ingredient.quantity} ${ingredient.unit}</h3>
+            </div>`;
         });
 
-        sectionIngredient += '</table>'
+        sectionIngredient += '</div>'
 
         const listItem = `<div class="card">
                 <img src="assets/photos/${recipe.image}" alt="" class="card__pic">

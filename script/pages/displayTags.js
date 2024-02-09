@@ -8,12 +8,8 @@ export function addTags(tagName, tagValue) {
   if (!selectedUtensils.includes(tagValue)) {
     // Add the selected utensil to the array
     selectedUtensils.push(tagValue);
-
     // Store the updated array in the session
     sessionStorage.setItem(tagName, JSON.stringify(selectedUtensils));
-
-    // Log the updated list of selected utensils
-    console.log("Selected Utensils:", selectedUtensils);
   }
 
   displayTags();
