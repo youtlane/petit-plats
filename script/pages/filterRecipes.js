@@ -67,21 +67,24 @@ function getFilteredRecipes(recipesData, selectedUtensils, selectedAppliances, s
   return filteredRecipes;
 }
 
-
 export function filterAll(searchValue, recipesData) {
-  // Filtering based on selected ingredients and search term
-  let filtredRecipes = recipesData.filter((recipe) => {
-    let recipeNameIncluded = recipe.name.toLowerCase().includes(searchValue);
-    let descriptionIncluded = recipe.description.toLowerCase().includes(searchValue);
-    let appliancesIncluded = recipe.appliance.toLowerCase().includes(searchValue);
-    let utensilsIncluded = recipe.ustensils.includes(searchValue);
-    let ingredientsIncluded = recipe.ingredients.some((ingredient) =>
-      ingredient.ingredient.toLowerCase().includes(searchValue)
-    );
-    return ingredientsIncluded || recipeNameIncluded || descriptionIncluded || appliancesIncluded || utensilsIncluded;
-  });
+  let newfilteredRecipes = []
+  for (let i = 0; i < recipesData.length; i++) {
+      let recipe = recipesData[i];
+      let recipeNameIncluded = recipe.name.toLowerCase().includes(searchValue);
+      let descriptionIncluded = recipe.description.toLowerCase().includes(searchValue);
+      let appliancesIncluded = recipe.appliance.toLowerCase().includes(searchValue);
+      let utensilsIncluded = recipe.ustensils.includes(searchValue);
+      let ingredientsIncluded = recipe.ingredients.some((ingredient) =>
+          ingredient.ingredient.toLowerCase().includes(searchValue)
+      );
 
-  displayRecipes(filtredRecipes);
+      if (recipeNameIncluded || recipeNameIncluded || descriptionIncluded || appliancesIncluded || utensilsIncluded || ingredientsIncluded) {
+          newfilteredRecipes.push(recipe);
+      }
+  }
+
+  displayRecipes(newfilteredRecipes);
 }
 
 export function filterAppliances() {
