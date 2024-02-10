@@ -14,6 +14,22 @@ header {
     padding-top: 20px;
 }
 
+.recipe-time {
+    align-items: center;
+    background-color: #ffd15b;
+    border-radius: 14px;
+    color: #1b1b1b;
+    display: inline-flex;
+    font-size: 12px;
+    gap: 10px;
+    justify-content: center;
+    padding: 5px 15px;
+    /* position: absolute; */
+    right: 21px;
+    top: 21px
+
+}
+
 .search-bar {
     display: flex;
     flex-direction: column;

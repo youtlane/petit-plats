@@ -6,6 +6,7 @@ import {
   filterUstensils,
   filterIngredients,
   filterAppliances,
+  filterAll
 } from "./filterRecipes.js";
 
 const dataService = new GetData();
@@ -41,6 +42,11 @@ async function init() {
 
   filterAndDisplayRecipes();
 
+  // Ajouter des écouteurs d'événements 
+  addListners()
+}
+
+function addListners() {
   // Ajouter des écouteurs d'événements pour basculer la visibilité du dropdown
   const buttonDownI = document.getElementById("button__down-i");
   const buttonUpI = document.getElementById("button__up-i");
@@ -65,6 +71,11 @@ async function init() {
 
   const searchInputI = document.querySelector(".search-small-i");
   searchInputI.addEventListener("input", filterIngredients);
+
+  const searchInput = document.querySelector(".search");
+  searchInput.addEventListener("input", () => {
+    filterAll(searchInput.value.toLowerCase(), allRecipes);
+  });
 }
 
 function displayIngredients() {
@@ -141,12 +152,7 @@ function toggleDropdown(dropdownType) {
   const buttonDownU = document.getElementById("button__down-u");
 
   // Afficher le dropdown en cours
-  const currentButtonUp =
-    dropdownType === "i"
-      ? buttonUpI
-      : dropdownType === "a"
-      ? buttonUpA
-      : buttonUpU;
+  const currentButtonUp = dropdownType === "i" ? buttonUpI : dropdownType === "a" ? buttonUpA : buttonUpU;
   const currentButtonDown =
     dropdownType === "i"
       ? buttonDownI
@@ -166,11 +172,27 @@ function toggleDropdown(dropdownType) {
   ) {
     currentButtonUp.style.display = "none";
     currentButtonDown.style.display = "block";
-    currentDropdownBody.style.display = "block";
+    displayDropdowns(dropdownType, dropdownBodyI, dropdownBodyA, dropdownBodyU);
   } else {
     currentButtonUp.style.display = "block";
     currentButtonDown.style.display = "none";
     currentDropdownBody.style.display = "none";
+  }
+}
+
+function displayDropdowns(dropdownType, dropdownBodyI, dropdownBodyA, dropdownBodyU) {
+  if (dropdownType === "i") {
+    dropdownBodyI.style.display = "block";
+    dropdownBodyA.style.display = "none";
+    dropdownBodyU.style.display = "none";
+  } else if (dropdownType === "a") {
+    dropdownBodyI.style.display = "none";
+    dropdownBodyA.style.display = "block";
+    dropdownBodyU.style.display = "none";
+  } else {
+    dropdownBodyI.style.display = "none";
+    dropdownBodyA.style.display = "none";
+    dropdownBodyU.style.display = "block";
   }
 }
 

@@ -8,13 +8,14 @@ export function displayRecipes(recipesData) {
         recipe.ingredients.forEach(ingredient => {
             sectionIngredient += `<div class="ingredient">
                 <h2>${ingredient.ingredient}</h2>
-                <h3>${ingredient.quantity} ${ingredient.unit}</h3>
+                <h3>${ingredient.quantity} ${ingredient.unit ? ingredient.unit : ''}</h3>
             </div>`;
         });
 
         sectionIngredient += '</div>'
 
         const listItem = `<div class="card">
+                <p class='recipe-time'>${recipe.time} min</p>
                 <img src="assets/photos/${recipe.image}" alt="" class="card__pic">
                 <div class="card__content">
                     <h2 class="recipe-title">${recipe.name}</h2>

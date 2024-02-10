@@ -1,3 +1,6 @@
+import { displayRecipes } from "./displayRecipes.js";
+
+
 export function filterRecipes(allRecipes) {
   let recipesData = allRecipes;
   let selectedUtensils =
@@ -26,12 +29,7 @@ export function filterRecipes(allRecipes) {
   return recipesData;
 }
 
-function getFilteredRecipes(
-  recipesData,
-  selectedUtensils,
-  selectedAppliances,
-  selectedIngredients
-) {
+function getFilteredRecipes(recipesData, selectedUtensils, selectedAppliances, selectedIngredients) {
   // Filtrer les recettes en fonction des ustensiles sélectionnés
 
   let filteredByUtensils = recipesData.filter((recipe) => {
@@ -43,8 +41,6 @@ function getFilteredRecipes(
     return allUtensilsIncluded;
   });
 
-  console.log("filteredByUtensils", filteredByUtensils);
-
   let filteredByAppliances = filteredByUtensils;
   if (selectedAppliances.length > 0) {
     // Filtrer les recettes en fonction des appareils sélectionnés
@@ -52,7 +48,6 @@ function getFilteredRecipes(
       (recipe) => recipe.appliance === selectedAppliances[0]
     );
   }
-  console.log("filteredByAppliances", filteredByAppliances);
 
   let filteredRecipes = filteredByAppliances;
   if (selectedIngredients.length > 0) {
@@ -65,9 +60,29 @@ function getFilteredRecipes(
     });
   }
 
-  console.log("filteredRecipes", filteredRecipes);
-
   return filteredRecipes;
+}
+
+export function filterAll(searchValue, allRecipes) {
+  let selectedUtensils = JSON.parse(sessionStorage.getItem("selectedUtensils")) || [];
+  let selectedAppliances = JSON.parse(sessionStorage.getItem("selectedAppliances")) || [];
+  let selectedIngredients = JSON.parse(sessionStorage.getItem("selectedIngredients")) || [];
+
+  let filtredRecipes = getFilteredRecipes(allRecipes, selectedUtensils, selectedAppliances, selectedIngredients);
+
+  // Filtering based on selected ingredients and search term
+  filtredRecipes = filtredRecipes.filter((recipe) => {
+    let recipeNameIncluded = recipe.name.toLowerCase().includes(searchValue);
+    let descriptionIncluded = recipe.description.toLowerCase().includes(searchValue);
+    let appliancesIncluded = recipe.appliance.toLowerCase().includes(searchValue);
+    let utensilsIncluded = recipe.ustensils.includes(searchValue);
+    let ingredientsIncluded = recipe.ingredients.some((ingredient) =>
+      ingredient.ingredient.toLowerCase().includes(searchValue)
+    );
+    return ingredientsIncluded || recipeNameIncluded || descriptionIncluded || appliancesIncluded || utensilsIncluded;
+  });
+
+  displayRecipes(filtredRecipes);
 }
 
 export function filterAppliances() {
