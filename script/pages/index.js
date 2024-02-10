@@ -84,7 +84,7 @@ function displayIngredients() {
   allIngredients.forEach((ingredient) => {
     const listItem = document.createElement("li");
     listItem.textContent = ingredient;
-    listItem.classList.add("fa-search-item");
+    listItem.classList.add("search-item");
     dropdownItemsI.appendChild(listItem);
 
     addReciepesEvent("selectedIngredients", listItem);
@@ -97,6 +97,7 @@ function displayAppliances() {
   allAppliances.forEach((appliance) => {
     const listItem = document.createElement("li");
     listItem.textContent = appliance;
+    listItem.classList.add("search-item");
     dropdownItemsA.appendChild(listItem);
 
     addReciepesEvent("selectedAppliances", listItem);
@@ -109,6 +110,7 @@ function displayUstensils() {
   allUstensils.forEach((ustensil) => {
     const listItem = document.createElement("li");
     listItem.textContent = ustensil;
+    listItem.classList.add("search-item");
     dropdownItemsU.appendChild(listItem);
 
     addReciepesEvent("selectedUtensils", listItem);
