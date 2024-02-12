@@ -8,7 +8,7 @@ export function displayRecipes(recipesData) {
         recipe.ingredients.forEach(ingredient => {
             sectionIngredient += `<div class="ingredient">
                 <h2>${ingredient.ingredient}</h2>
-                <h3>${ingredient.quantity} ${ingredient.unit ? ingredient.unit : ''}</h3>
+                <h3>${ingredient.quantity ? ingredient.quantity : ''} ${ingredient.unit ? ingredient.unit : ''}</h3>
             </div>`;
         });
 

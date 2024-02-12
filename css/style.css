@@ -187,6 +187,9 @@ main {
 .dropdown__body-u {
     display: none;
 }
+.search-item {
+    padding: 5px;
+}
 
 .header-title {
     margin-left: auto;
@@ -268,4 +271,22 @@ main {
     display: flex;
     gap: 60px;
     align-items: center;
+}
+
+.clear-tags-i {
+    margin-right: 25px;
+    margin-left: -34px;
+    display: none;
+}
+
+.clear-tags-a {
+    margin-right: 25px;
+    margin-left: -34px;
+    display: none;
+}
+
+.clear-tags-u {
+    margin-right: 25px;
+    margin-left: -34px;
+    display: none;
 }

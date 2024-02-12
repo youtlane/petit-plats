@@ -17,19 +17,20 @@ export function addTags(tagName, tagValue) {
 
 export function displayTags() {
   const tagRecipes = document.querySelector(".tags-recipes");
+
+  // Récupération des tags selectionnés depuis la session du navigateur
+  let selectedIngredients =
+    JSON.parse(sessionStorage.getItem("selectedIngredients")) || [];
+  let selectedAppliances =
+    JSON.parse(sessionStorage.getItem("selectedAppliances")) || [];
   let selectedUtensils =
     JSON.parse(sessionStorage.getItem("selectedUtensils")) || [];
 
-  let selectedAppliances =
-    JSON.parse(sessionStorage.getItem("selectedAppliances")) || [];
-
-  let selectedIngredients =
-    JSON.parse(sessionStorage.getItem("selectedIngredients")) || [];
-
   let tags = "";
 
-  selectedUtensils.forEach((tag) => {
-    tags += `<span class="tags" id="${tag}" tag-type="selectedUtensils" role="button">
+  // Ajout des tags selectionnées dans des elements HTML
+  selectedIngredients.forEach((tag) => {
+    tags += `<span class="tags" id="${tag}" tag-type="selectedIngredients" role="button">
                     ${tag}
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </span>`;
@@ -40,13 +41,14 @@ export function displayTags() {
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </span>`;
   });
-  selectedIngredients.forEach((tag) => {
-    tags += `<span class="tags" id="${tag}" tag-type="selectedIngredients" role="button">
+  selectedUtensils.forEach((tag) => {
+    tags += `<span class="tags" id="${tag}" tag-type="selectedUtensils" role="button">
                     ${tag}
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </span>`;
   });
 
+  // Insérer les elements tags dans l'element tagRecipes
   tagRecipes.innerHTML = "";
   tagRecipes.insertAdjacentHTML("afterbegin", tags);
 

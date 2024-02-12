@@ -6,7 +6,10 @@ import {
   filterUstensils,
   filterIngredients,
   filterAppliances,
-  filterAll
+  filterAll,
+  resetAppliances,
+  resetIngredients,
+  resetUstensils
 } from "./filterRecipes.js";
 
 const dataService = new GetData();
@@ -16,9 +19,22 @@ let allIngredients = [];
 let allAppliances = [];
 let allUstensils = [];
 
+
 async function init() {
   recipesData = await dataService.getRecipesData();
   allRecipes = recipesData;
+
+  // Afficher les tags dejà selectionnés
+  displayTags();
+
+  // filtrer par tags selectionnés et afficher les recettes
+  filterAndDisplayRecipes();
+
+  // Ajouter des écouteurs d'événements 
+  addListners()
+}
+
+function initTagsData(recipesData) {
   allIngredients = Array.from(
     new Set(
       recipesData.flatMap((recipe) =>
@@ -26,6 +42,7 @@ async function init() {
       )
     )
   );
+
   allAppliances = Array.from(
     new Set(recipesData.map((recipe) => recipe.appliance))
   );
@@ -33,17 +50,10 @@ async function init() {
     new Set(recipesData.flatMap((recipe) => recipe.ustensils))
   );
 
+
   displayIngredients();
   displayAppliances();
   displayUstensils();
-
-  displayRecipes(recipesData);
-  displayTags();
-
-  filterAndDisplayRecipes();
-
-  // Ajouter des écouteurs d'événements 
-  addListners()
 }
 
 function addListners() {
@@ -76,11 +86,22 @@ function addListners() {
   searchInput.addEventListener("input", () => {
     filterAll(searchInput.value.toLowerCase(), allRecipes);
   });
+
+
+  const searchResetU = document.querySelector(".clear-tags-u");
+  searchResetU.addEventListener("click", resetUstensils);
+
+  const searchResetA = document.querySelector(".clear-tags-a");
+  searchResetA.addEventListener("click", resetAppliances);
+
+  const searchResetI = document.querySelector(".clear-tags-i");
+  searchResetI.addEventListener("click", resetIngredients);
 }
 
 function displayIngredients() {
   const dropdownItemsI = document.querySelector(".dropdown__items-i");
-
+  dropdownItemsI.innerHTML = "";
+  
   allIngredients.forEach((ingredient) => {
     const listItem = document.createElement("li");
     listItem.textContent = ingredient;
@@ -93,6 +114,7 @@ function displayIngredients() {
 
 function displayAppliances() {
   const dropdownItemsA = document.querySelector(".dropdown__items-a");
+  dropdownItemsA.innerHTML = "";
 
   allAppliances.forEach((appliance) => {
     const listItem = document.createElement("li");
@@ -106,6 +128,7 @@ function displayAppliances() {
 
 function displayUstensils() {
   const dropdownItemsU = document.querySelector(".dropdown__items-u");
+  dropdownItemsU.innerHTML = "";
 
   allUstensils.forEach((ustensil) => {
     const listItem = document.createElement("li");
@@ -130,13 +153,12 @@ function filterAndDisplayRecipes() {
   const recipesData = filterRecipes(allRecipes);
   const titleHeader = document.querySelector('.header-title');
 
-  console.log("recipesData ", recipesData);
-
   // Now you can use the filteredRecipes to display in the UI
   displayRecipes(recipesData);
   titleHeader.innerHTML = recipesData.length + ' recettes';
 
   toggleDropdownAll();
+  initTagsData(recipesData);
 }
 
 function toggleDropdown(dropdownType) {
