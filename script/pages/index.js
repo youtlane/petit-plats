@@ -84,7 +84,7 @@ function addListners() {
 
   const searchInput = document.querySelector(".search");
   searchInput.addEventListener("input", () => {
-    filterAll(searchInput.value.toLowerCase(), allRecipes);
+    filterAll(searchInput.value.toLowerCase(), recipesData);
   });
 
 
@@ -150,7 +150,7 @@ function addReciepesEvent(selectedTagsName, listItems) {
 }
 
 function filterAndDisplayRecipes() {
-  const recipesData = filterRecipes(allRecipes);
+  recipesData = filterRecipes(allRecipes);
   const titleHeader = document.querySelector('.header-title');
 
   // Now you can use the filteredRecipes to display in the UI

@@ -67,15 +67,10 @@ function getFilteredRecipes(recipesData, selectedUtensils, selectedAppliances, s
   return filteredRecipes;
 }
 
-export function filterAll(searchValue, allRecipes) {
-  let selectedUtensils = JSON.parse(sessionStorage.getItem("selectedUtensils")) || [];
-  let selectedAppliances = JSON.parse(sessionStorage.getItem("selectedAppliances")) || [];
-  let selectedIngredients = JSON.parse(sessionStorage.getItem("selectedIngredients")) || [];
 
-  let filtredRecipes = getFilteredRecipes(allRecipes, selectedUtensils, selectedAppliances, selectedIngredients);
-
+export function filterAll(searchValue, recipesData) {
   // Filtering based on selected ingredients and search term
-  filtredRecipes = filtredRecipes.filter((recipe) => {
+  let filtredRecipes = recipesData.filter((recipe) => {
     let recipeNameIncluded = recipe.name.toLowerCase().includes(searchValue);
     let descriptionIncluded = recipe.description.toLowerCase().includes(searchValue);
     let appliancesIncluded = recipe.appliance.toLowerCase().includes(searchValue);
