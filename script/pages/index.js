@@ -22,6 +22,7 @@ let allUstensils = [];
 
 async function init() {
   recipesData = await dataService.getRecipesData();
+  //stocker toutes les recettes sur allRecipes pour les reutiliser
   allRecipes = recipesData;
 
   // Afficher les tags dejà selectionnés
@@ -101,7 +102,7 @@ function addListners() {
 function displayIngredients() {
   const dropdownItemsI = document.querySelector(".dropdown__items-i");
   dropdownItemsI.innerHTML = "";
-  
+
   allIngredients.forEach((ingredient) => {
     const listItem = document.createElement("li");
     listItem.textContent = ingredient;
@@ -181,14 +182,14 @@ function toggleDropdown(dropdownType) {
     dropdownType === "i"
       ? buttonDownI
       : dropdownType === "a"
-      ? buttonDownA
-      : buttonDownU;
+        ? buttonDownA
+        : buttonDownU;
   const currentDropdownBody =
     dropdownType === "i"
       ? dropdownBodyI
       : dropdownType === "a"
-      ? dropdownBodyA
-      : dropdownBodyU;
+        ? dropdownBodyA
+        : dropdownBodyU;
 
   if (
     currentDropdownBody.style.display === "none" ||
@@ -231,34 +232,14 @@ function toggleDropdownAll() {
 }
 
 export function removeTagFromSession(tagToRemove, tagType) {
-  if (tagType === "selectedUtensils") {
-    let selectedTags =
-      JSON.parse(sessionStorage.getItem("selectedUtensils")) || [];
+  let selectedTags =
+    JSON.parse(sessionStorage.getItem(tagType)) || [];
 
-    // Remove the specified tag from the array
-    selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
+  // Remove the specified tag from the array
+  selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
 
-    // Update the session with the modified array
-    sessionStorage.setItem("selectedUtensils", JSON.stringify(selectedTags));
-  } else if (tagType === "selectedAppliances") {
-    let selectedTags =
-      JSON.parse(sessionStorage.getItem("selectedAppliances")) || [];
-
-    // Remove the specified tag from the array
-    selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
-
-    // Update the session with the modified array
-    sessionStorage.setItem("selectedAppliances", JSON.stringify(selectedTags));
-  } else if (tagType === "selectedIngredients") {
-    let selectedTags =
-      JSON.parse(sessionStorage.getItem("selectedIngredients")) || [];
-
-    // Remove the specified tag from the array
-    selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
-
-    // Update the session with the modified array
-    sessionStorage.setItem("selectedIngredients", JSON.stringify(selectedTags));
-  }
+  // Update the session with the modified array
+  sessionStorage.setItem(tagType, JSON.stringify(selectedTags));
 
   filterAndDisplayRecipes();
 }

@@ -59,17 +59,8 @@ export function displayTags() {
 function handleTagClick(event) {
   const clickedElement = event.target;
 
-  // Check if the clicked element is a tag or its close icon
-  if (clickedElement.classList.contains("tags")) {
-    const clickedTag = clickedElement.textContent.trim();
-    const tagType = clickedElement.getAttribute("tag-type");
-
-    // Remove the clicked tag from the session
-    removeTagFromSession(clickedTag, tagType);
-
-    // Re-display tags after removal
-    displayTags();
-  } else if (clickedElement.classList.contains("fa-times")) {
+  // Check if the clicked element is a  close icon
+  if (clickedElement.classList.contains("fa-times")) {
     // If the close icon was clicked, find the corresponding tag and remove it
     const clickedTag = clickedElement.closest(".tags").textContent.trim();
     const tagType = clickedElement.closest(".tags").getAttribute("tag-type");
