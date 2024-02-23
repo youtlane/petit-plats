@@ -80,7 +80,6 @@ export function filterAll(searchValue, recipesData) {
     );
     return ingredientsIncluded || recipeNameIncluded || descriptionIncluded || appliancesIncluded || utensilsIncluded;
   });
-
   displayRecipes(filtredRecipes);
 }
 

@@ -22,6 +22,7 @@ let allUstensils = [];
 
 async function init() {
   recipesData = await dataService.getRecipesData();
+  //stocker toutes les recettes sur allRecipes pour les reutiliser
   allRecipes = recipesData;
 
   // Afficher les tags dejà selectionnés
@@ -34,18 +35,24 @@ async function init() {
   addListners()
 }
 
+// Fonction pour initialiser les données des tags à partir des données des recettes
 function initTagsData(recipesData) {
+  // Récupérer toutes les ingrédients uniques à partir des recettes
   allIngredients = Array.from(
     new Set(
+      //mis a plat des attribut d'objet Recipe
       recipesData.flatMap((recipe) =>
         recipe.ingredients.map((ingredient) => ingredient.ingredient)
       )
     )
   );
 
+  // Récupérer tous les appareils uniques à partir des recettes
   allAppliances = Array.from(
     new Set(recipesData.map((recipe) => recipe.appliance))
   );
+
+  // Récupérer tous les ustensiles uniques à partir des recettes
   allUstensils = Array.from(
     new Set(recipesData.flatMap((recipe) => recipe.ustensils))
   );
@@ -73,12 +80,15 @@ function addListners() {
   buttonDownU.addEventListener("click", toggleDropdown.bind(null, "u"));
   buttonUpU.addEventListener("click", toggleDropdown.bind(null, "u"));
 
+  //LIstner sur la saisie de recherche des tags ustensils
   const searchInputU = document.querySelector(".search-small-u");
   searchInputU.addEventListener("input", filterUstensils);
 
+  //LIstner sur la saisie de recherche des tags Appareils
   const searchInputA = document.querySelector(".search-small-a");
   searchInputA.addEventListener("input", filterAppliances);
 
+  //LIstner sur la saisie de recherche des tags ustensils
   const searchInputI = document.querySelector(".search-small-i");
   searchInputI.addEventListener("input", filterIngredients);
 
@@ -101,7 +111,7 @@ function addListners() {
 function displayIngredients() {
   const dropdownItemsI = document.querySelector(".dropdown__items-i");
   dropdownItemsI.innerHTML = "";
-  
+
   allIngredients.forEach((ingredient) => {
     const listItem = document.createElement("li");
     listItem.textContent = ingredient;
@@ -151,11 +161,9 @@ function addReciepesEvent(selectedTagsName, listItems) {
 
 function filterAndDisplayRecipes() {
   recipesData = filterRecipes(allRecipes);
-  const titleHeader = document.querySelector('.header-title');
 
   // Now you can use the filteredRecipes to display in the UI
   displayRecipes(recipesData);
-  titleHeader.innerHTML = recipesData.length + ' recettes';
 
   toggleDropdownAll();
   initTagsData(recipesData);
@@ -181,14 +189,14 @@ function toggleDropdown(dropdownType) {
     dropdownType === "i"
       ? buttonDownI
       : dropdownType === "a"
-      ? buttonDownA
-      : buttonDownU;
+        ? buttonDownA
+        : buttonDownU;
   const currentDropdownBody =
     dropdownType === "i"
       ? dropdownBodyI
       : dropdownType === "a"
-      ? dropdownBodyA
-      : dropdownBodyU;
+        ? dropdownBodyA
+        : dropdownBodyU;
 
   if (
     currentDropdownBody.style.display === "none" ||
@@ -231,34 +239,14 @@ function toggleDropdownAll() {
 }
 
 export function removeTagFromSession(tagToRemove, tagType) {
-  if (tagType === "selectedUtensils") {
-    let selectedTags =
-      JSON.parse(sessionStorage.getItem("selectedUtensils")) || [];
+  let selectedTags =
+    JSON.parse(sessionStorage.getItem(tagType)) || [];
 
-    // Remove the specified tag from the array
-    selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
+  // Remove the specified tag from the array
+  selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
 
-    // Update the session with the modified array
-    sessionStorage.setItem("selectedUtensils", JSON.stringify(selectedTags));
-  } else if (tagType === "selectedAppliances") {
-    let selectedTags =
-      JSON.parse(sessionStorage.getItem("selectedAppliances")) || [];
-
-    // Remove the specified tag from the array
-    selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
-
-    // Update the session with the modified array
-    sessionStorage.setItem("selectedAppliances", JSON.stringify(selectedTags));
-  } else if (tagType === "selectedIngredients") {
-    let selectedTags =
-      JSON.parse(sessionStorage.getItem("selectedIngredients")) || [];
-
-    // Remove the specified tag from the array
-    selectedTags = selectedTags.filter((tag) => tag !== tagToRemove);
-
-    // Update the session with the modified array
-    sessionStorage.setItem("selectedIngredients", JSON.stringify(selectedTags));
-  }
+  // Update the session with the modified array
+  sessionStorage.setItem(tagType, JSON.stringify(selectedTags));
 
   filterAndDisplayRecipes();
 }

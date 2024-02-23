@@ -1,4 +1,4 @@
-
+//structuration d'objet recipe
 export class Recipe {
     constructor(data) {
       this.id = data.id;
